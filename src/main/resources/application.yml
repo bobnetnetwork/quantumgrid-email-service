@@ -1,0 +1,83 @@
+spring:
+    application:
+        name: Email Service
+    data:
+        mongodb:
+            host: ${JDBC_DATABASE_HOST:localhost}
+            port: ${JDBC_DATABASE_PORT:27917}
+            username: ${JDBC_DATABASE_USERNAME:emailservice}
+            password: ${JDBC_DATABASE_PASSWORD:P4ssword!}
+            database: ${JDBC_DATABASE_DATABASE:emailservice}
+            #uri: ${JDBC_DATABASE_URL:mongodb+srv://emailservice:P4ssword!@localhost:27917/emailservice}
+            authentication-database: ${JDBC_DATABASE_AUTHENTICATION_DB:quantumgrid}
+    autoconfigure:
+        exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    lifecycle:
+        timeout-per-shutdown-phase: 30s
+    main:
+        banner-mode: off
+        lazy-initialization: true
+    servlet:
+        multipart:
+            max-file-size: 31MB
+            max-request-size: 31MB
+
+server:
+    port: 8080
+    shutdown: graceful
+    servlet:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+
+management:
+    health:
+        livenessstate:
+            enabled: true
+        readinessstate:
+            enabled: true
+    endpoints:
+        web:
+            exposure:
+                include: health,info,metrics,prometheus,httptrace,swagger-ui,openapi,shutdown,threaddump
+        jmx:
+            exposure:
+                include: "*"
+    endpoint:
+        health:
+            show-details: always
+            enabled: true
+            group:
+                custom:
+                    show-components: always
+                    show-details: always
+        metrics:
+            enabled: true
+        mappings:
+            enabled: true
+        shutdown:
+            enabled: true
+        prometheus:
+            enabled: true
+    server:
+        port: 8081
+    info:
+        java:
+            enabled: true
+        git:
+            mode: full
+            enabled: true
+        build:
+            enabled: true
+        env:
+            enabled: true
+        os:
+            enabled: true
+        defaults:
+            enabled: true
+
+springdoc:
+    show-actuator: false
+    use-management-port: true
+    pathsToMatch: /api/**, /authenticate, /register
