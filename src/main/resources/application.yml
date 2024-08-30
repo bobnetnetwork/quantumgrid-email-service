@@ -10,6 +10,11 @@ spring:
             database: ${JDBC_DATABASE_DATABASE:emailservice}
             #uri: ${JDBC_DATABASE_URL:mongodb+srv://emailservice:P4ssword!@localhost:27917/emailservice}
             authentication-database: ${JDBC_DATABASE_AUTHENTICATION_DB:quantumgrid}
+    mail:
+        host: localhost
+        username: mailservice@quantumgrid.bobnet.network
+        password: P4ssword!
+        port: 1025
     autoconfigure:
         exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
     lifecycle:
